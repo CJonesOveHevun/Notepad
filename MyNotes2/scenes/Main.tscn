@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Toolbar1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/body.tscn" type="PackedScene" id=3]
+
+[node name="Main" type="Control" groups=["themed"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="body" parent="." instance=ExtResource( 3 )]
+
+[node name="Toolbar1" parent="." instance=ExtResource( 2 )]
+
+[node name="Toolbar_panel2" parent="Toolbar1" index="0"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_panel" parent="Toolbar1" index="1" groups=["themed"]]
+
+[node name="WallpaperDialog" parent="Toolbar1/Front_Layers" index="2"]
+window_title = "Open File(s)"
+
+[node name="apply_button" parent="Toolbar1/Front_Layers/Theme_dialog" index="3"]
+anchor_left = 0.167
+anchor_top = 0.867
+anchor_right = 0.333
+anchor_bottom = 0.933
+margin_left = -0.127998
+margin_top = -0.119995
+margin_right = 0.128006
+margin_bottom = 0.120026
+
+[node name="cancel_button" parent="Toolbar1/Front_Layers/Theme_dialog" index="4"]
+anchor_left = 0.667
+anchor_top = 0.867
+anchor_right = 0.833
+anchor_bottom = 0.933
+margin_left = -0.127991
+margin_top = -0.119995
+margin_right = 0.127991
+margin_bottom = 0.120026
+
+[connection signal="text_entered" from="Toolbar1/Front_Layers/RenameDialog/rename_edit" to="Toolbar1" method="_on_rename_edit_text_entered"]
+
+[editable path="body"]
+[editable path="Toolbar1"]

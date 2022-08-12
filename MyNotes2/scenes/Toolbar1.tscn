@@ -1,0 +1,678 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/Toolbar1.gd" type="Script" id=1]
+[ext_resource path="res://scripts/window_handler.gd" type="Script" id=2]
+[ext_resource path="res://Eclipse_icon.png" type="Texture" id=3]
+[ext_resource path="res://Icons/sidebar_ico_atlas.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 128, 128 )
+margin = Rect2( -5, 0, 0, 0 )
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 128, 128, 128 )
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 128, 128 )
+filter_clip = true
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0431373, 0.0431373, 0.0431373, 0.317647 )
+
+[node name="Toolbar1" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar_panel2" type="Panel" parent="." groups=["themed"]]
+self_modulate = Color( 0.862745, 0.862745, 0.862745, 0 )
+anchor_right = 1.0
+margin_bottom = 80.0
+
+[node name="toolbar_panel" type="Panel" parent="Toolbar_panel2" groups=["themed"]]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Toolbar_panel2"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = -32.0
+margin_right = -40.0
+margin_bottom = -8.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Zoom_in" type="Button" parent="Toolbar_panel2/HBoxContainer"]
+margin_right = 36.0
+margin_bottom = 24.0
+text = "  +  "
+align = 0
+
+[node name="zoom_out" type="Button" parent="Toolbar_panel2/HBoxContainer"]
+margin_left = 51.0
+margin_right = 84.0
+margin_bottom = 24.0
+text = "  -  "
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="zoom_label" type="Label" parent="Toolbar_panel2/HBoxContainer"]
+margin_left = 99.0
+margin_top = 5.0
+margin_right = 188.0
+margin_bottom = 19.0
+text = "Zoomed : 25~"
+
+[node name="search_bar" type="LineEdit" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
+margin_left = 203.0
+margin_right = 821.0
+margin_bottom = 24.0
+mouse_filter = 1
+size_flags_horizontal = 3
+align = 1
+max_length = 49
+expand_to_text_length = true
+placeholder_text = "Search word"
+placeholder_alpha = 0.5
+caret_blink = true
+
+[node name="discard_tab" type="Button" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
+unique_name_in_owner = true
+margin_left = 836.0
+margin_right = 896.0
+margin_bottom = 24.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Discard"
+
+[node name="window_panel" type="Panel" parent="."]
+anchor_right = 1.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_title" type="Label" parent="."]
+anchor_right = 1.0
+margin_left = 48.0
+margin_right = -128.0
+margin_bottom = 40.0
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sidebar" type="Panel" parent="." groups=["themed"]]
+anchor_bottom = 1.0
+margin_right = 48.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ARatio1" type="AspectRatioContainer" parent="."]
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 104.0
+margin_right = 40.0
+margin_bottom = -184.0
+rect_scale = Vector2( 1.5, 1.5 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ARatio1"]
+margin_right = 32.0
+margin_bottom = 76.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 11
+size_flags_vertical = 11
+custom_constants/separation = 8
+alignment = 1
+
+[node name="File" type="MenuButton" parent="ARatio1/HBoxContainer" groups=["themed"]]
+margin_right = 32.0
+margin_bottom = 20.0
+hint_tooltip = "Files
+(Ctrl + s) - Quick save"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+enabled_focus_mode = 0
+icon = SubResource( 3 )
+clip_text = true
+expand_icon = true
+items = [ "Save file as..", null, 0, false, false, 0, 0, null, "", false, "Load file", null, 0, false, false, 1, 0, null, "", false, "New file", null, 0, false, false, 2, 0, null, "", false, "Save file", null, 0, false, false, 3, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="Tab_menu" type="MenuButton" parent="ARatio1/HBoxContainer" groups=["themed"]]
+margin_top = 28.0
+margin_right = 32.0
+margin_bottom = 48.0
+hint_tooltip = "Edit"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+enabled_focus_mode = 0
+icon = SubResource( 4 )
+clip_text = true
+expand_icon = true
+items = [ "Clear one", null, 0, false, false, 0, 0, null, "", false, "Clear All", null, 0, false, false, 1, 0, null, "", false, "Rename current file", null, 0, false, false, 2, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="Settings" type="MenuButton" parent="ARatio1/HBoxContainer" groups=["themed"]]
+margin_top = 56.0
+margin_right = 32.0
+margin_bottom = 76.0
+hint_tooltip = "Settings"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+enabled_focus_mode = 0
+icon = SubResource( 5 )
+clip_text = true
+expand_icon = true
+items = [ "Edit Themes", null, 0, false, false, 0, 0, null, "", false, "Save files on quit ", null, 1, true, false, 1, 0, null, "", false, "Debug Mode (Only works in Editor)", null, 1, false, false, 2, 0, null, "", false, "Toggle Syntax Highlighting", null, 1, false, false, 3, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="Front_Layers" type="CanvasLayer" parent="."]
+
+[node name="blocker" type="Panel" parent="Front_Layers"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadFileDialog" type="FileDialog" parent="Front_Layers" groups=["themed"]]
+anchor_bottom = 0.5
+margin_top = 24.0
+margin_right = 640.0
+margin_bottom = 56.0
+focus_mode = 1
+window_title = "Open File(s)"
+resizable = true
+dialog_hide_on_ok = true
+mode_overrides_title = false
+mode = 1
+access = 2
+filters = PoolStringArray( "*.txt", "*.json", "*.toml", "*.gd", "*.py", "*.js", "*.cs", "*.cpp", "*.plr", "*.cfg" )
+show_hidden_files = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WallpaperDialog" type="FileDialog" parent="Front_Layers" groups=["themed"]]
+anchor_bottom = 0.587
+margin_top = 24.0
+margin_right = 640.0
+margin_bottom = 0.320007
+window_title = "Open a File or Directory"
+mode = 3
+access = 2
+filters = PoolStringArray( "*.png", "*.jpeg" )
+show_hidden_files = true
+
+[node name="RenameDialog" type="WindowDialog" parent="Front_Layers" groups=["themed"]]
+anchor_right = 0.25
+anchor_bottom = 0.25
+margin_top = 24.0
+margin_bottom = 2.0
+window_title = "Rename a file"
+resizable = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rename_edit" type="LineEdit" parent="Front_Layers/RenameDialog" groups=["themed"]]
+anchor_top = 0.385
+anchor_right = 0.937
+anchor_bottom = 0.635
+margin_left = 16.0
+margin_top = -0.0400009
+margin_right = 0.127991
+margin_bottom = -26.04
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "New Note"
+align = 1
+clear_button_enabled = true
+placeholder_text = "File name"
+
+[node name="confirm_rename" type="Button" parent="Front_Layers/RenameDialog"]
+anchor_left = 0.437
+anchor_top = 0.827
+anchor_right = 0.562
+anchor_bottom = 0.846
+margin_left = -15.872
+margin_top = -14.008
+margin_right = 16.128
+margin_bottom = 12.016
+text = "Confirm"
+
+[node name="SaveFileDialog" type="FileDialog" parent="Front_Layers" groups=["themed"]]
+anchor_bottom = 0.5
+margin_top = 16.0
+margin_right = 704.0
+focus_mode = 1
+resizable = true
+dialog_hide_on_ok = true
+mode_overrides_title = false
+access = 2
+filters = PoolStringArray( "*.txt", "*.json", "*.toml", "*.gd", "*.py", "*.js", "*.cs", "*.cpp", "*.plr", "*.cfg" )
+show_hidden_files = true
+
+[node name="Theme_dialog" type="WindowDialog" parent="Front_Layers" groups=["themed"]]
+anchor_right = 0.088
+anchor_bottom = 0.637
+margin_top = 24.0
+margin_right = 416.0
+margin_bottom = 2.31998
+popup_exclusive = true
+window_title = "Theme Editor"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="Front_Layers/Theme_dialog" groups=["themed"]]
+visible = false
+anchor_left = 0.542
+anchor_top = 0.111
+anchor_right = 0.979
+anchor_bottom = 0.167
+margin_left = -0.128021
+margin_top = 0.0399971
+margin_right = 0.0639954
+margin_bottom = -0.120003
+text = "Default"
+items = [ "Default", null, false, 0, null, "Light", null, false, 1, null, "Dark", null, false, 2, null, "Developer", null, false, 3, null, "Custom", null, false, 4, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="themetab" type="TabContainer" parent="Front_Layers/Theme_dialog" groups=["themed"]]
+anchor_top = 0.062
+anchor_right = 0.968
+anchor_bottom = 0.788
+margin_left = 8.0
+margin_top = 0.0680008
+margin_right = 0.127991
+margin_bottom = -0.167999
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="normal_colors" type="ScrollContainer" parent="Front_Layers/Theme_dialog/themetab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="Front_Layers/Theme_dialog/themetab/normal_colors"]
+margin_right = 134.0
+margin_bottom = 620.0
+size_flags_vertical = 3
+custom_constants/separation = 9
+
+[node name="text1" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+margin_right = 92.0
+margin_bottom = 31.0
+text = "
+Windows:"
+
+[node name="Label" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox/text1"]
+anchor_right = 3.13
+anchor_bottom = 3.097
+margin_left = 104.0
+margin_top = 40.0
+margin_right = 0.039978
+margin_bottom = -0.00700378
+text = "Window
+
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 40.0
+margin_right = 92.0
+margin_bottom = 60.0
+text = "Window"
+color = Color( 0.258824, 0.258824, 0.65098, 1 )
+
+[node name="toolbar_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 69.0
+margin_right = 92.0
+margin_bottom = 89.0
+disabled = true
+text = "Window"
+color = Color( 1, 1, 1, 0 )
+
+[node name="text3" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+margin_top = 98.0
+margin_right = 92.0
+margin_bottom = 112.0
+text = "Buttons:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox/text3"]
+anchor_left = -0.043
+anchor_top = -0.143
+anchor_right = 3.174
+anchor_bottom = 6.214
+margin_left = 107.956
+margin_top = 24.002
+margin_right = -4.00803
+margin_bottom = 0.0039978
+text = "Normal
+Hovered Button
+
+LineEdit
+FocusedLineEdit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 121.0
+margin_right = 92.0
+margin_bottom = 141.0
+text = "Window"
+color = Color( 0.258824, 0.258824, 0.65098, 1 )
+
+[node name="h_button_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 150.0
+margin_right = 92.0
+margin_bottom = 170.0
+color = Color( 0.54902, 0.54902, 0.858824, 1 )
+
+[node name="lineedit_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 179.0
+margin_right = 92.0
+margin_bottom = 199.0
+text = "Window"
+color = Color( 0.258824, 0.258824, 0.65098, 1 )
+
+[node name="f_ledit_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 208.0
+margin_right = 92.0
+margin_bottom = 228.0
+color = Color( 0.537255, 0.537255, 0.882353, 1 )
+
+[node name="text4" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+margin_top = 237.0
+margin_right = 92.0
+margin_bottom = 251.0
+text = "Body:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox/text4"]
+anchor_left = 1.13
+anchor_top = 0.5
+anchor_right = 3.13
+anchor_bottom = 10.071
+margin_left = 0.0400009
+margin_top = 14.0
+margin_right = 0.039978
+margin_bottom = -3.994
+text = "Tab
+Tab Bg
+
+Bg Panel
+Fg Panel(Toolbar)
+Sidebar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tab_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 260.0
+margin_right = 92.0
+margin_bottom = 280.0
+text = "Window"
+color = Color( 0.156863, 0.160784, 0.223529, 1 )
+
+[node name="bg_tab_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 289.0
+margin_right = 92.0
+margin_bottom = 309.0
+text = "Window"
+color = Color( 0.0901961, 0.0901961, 0.12549, 1 )
+
+[node name="bg_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 318.0
+margin_right = 92.0
+margin_bottom = 338.0
+text = "Window"
+color = Color( 0.027451, 0.0235294, 0.0862745, 1 )
+
+[node name="fg_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 347.0
+margin_right = 92.0
+margin_bottom = 367.0
+text = "Window"
+color = Color( 0.0235294, 0.0235294, 0.0862745, 1 )
+
+[node name="sidebar_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 376.0
+margin_right = 92.0
+margin_bottom = 396.0
+text = "Window"
+color = Color( 0.133333, 0.133333, 0.188235, 1 )
+
+[node name="text5" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+margin_top = 405.0
+margin_right = 92.0
+margin_bottom = 419.0
+text = "Popups:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox/text5"]
+anchor_left = 1.13
+anchor_top = 0.5
+anchor_right = 3.217
+anchor_bottom = 7.571
+margin_left = 0.0400009
+margin_top = 19.0
+margin_right = 0.0359802
+margin_bottom = 0.00598907
+text = "MenuPopup
+Hovered MenuPopup
+Dialog"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 428.0
+margin_right = 92.0
+margin_bottom = 448.0
+text = "Window"
+color = Color( 0.0235294, 0.0235294, 0.0862745, 0.505882 )
+
+[node name="h_menu_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 457.0
+margin_right = 92.0
+margin_bottom = 477.0
+color = Color( 0.988235, 0.988235, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dialog_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+unique_name_in_owner = true
+margin_top = 486.0
+margin_right = 92.0
+margin_bottom = 506.0
+text = "Window"
+color = Color( 0.0235294, 0.0235294, 0.0862745, 1 )
+
+[node name="text2" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
+margin_top = 515.0
+margin_right = 92.0
+margin_bottom = 529.0
+text = "Round corners"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spinbox_corner" type="SpinBox" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox" groups=["themed"]]
+unique_name_in_owner = true
+margin_top = 538.0
+margin_right = 92.0
+margin_bottom = 562.0
+max_value = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wp_button" type="Button" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox" groups=["themed"]]
+unique_name_in_owner = true
+margin_top = 571.0
+margin_right = 92.0
+margin_bottom = 591.0
+hint_tooltip = "Import Wallpaper"
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Import Background"
+
+[node name="clear_wp_button" type="Button" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox" groups=["themed"]]
+unique_name_in_owner = true
+margin_top = 600.0
+margin_right = 92.0
+margin_bottom = 620.0
+text = "Clear Background"
+
+[node name="apply_button" type="Button" parent="Front_Layers/Theme_dialog" groups=["themed"]]
+margin_left = 24.0
+margin_top = 328.0
+margin_right = 88.0
+margin_bottom = 352.0
+text = "Apply"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cancel_button" type="Button" parent="Front_Layers/Theme_dialog" groups=["themed"]]
+margin_left = 104.0
+margin_top = 328.0
+margin_right = 168.0
+margin_bottom = 352.0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_handler" type="Control" parent="Front_Layers"]
+anchor_right = 1.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="quit" type="Button" parent="Front_Layers/window_handler" groups=["themed"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = 32.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="maximize" type="Button" parent="Front_Layers/window_handler" groups=["themed"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -71.9995
+margin_top = 8.0
+margin_right = -47.9995
+margin_bottom = 32.0
+text = "O"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="minimize" type="Button" parent="Front_Layers/window_handler" groups=["themed"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 8.0
+margin_right = -88.0
+margin_bottom = 32.0
+text = "_"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="TextureRect" parent="Front_Layers/window_handler"]
+anchor_bottom = 0.8
+margin_left = 8.0
+margin_right = 40.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
