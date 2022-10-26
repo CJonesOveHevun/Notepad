@@ -139,7 +139,7 @@ def close_file():
     for tab in tabcontrol.winfo_children():
         if str(tab)==tabcontrol.select():
             tab.destroy()       
-            return  #Necessary to break or for loop can destroy all the tabs when first tab is deleted
+            return  #Necessary to break or the "for loop" will destroy all the tabs when first tab is deleted
 
 def close_all_files():
     for tabs in tabcontrol.winfo_children():
