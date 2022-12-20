@@ -8,9 +8,6 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="body" parent="." instance=ExtResource( 3 )]
 
@@ -23,8 +20,20 @@ __meta__ = {
 
 [node name="window_panel" parent="Toolbar1" index="1" groups=["themed"]]
 
+[node name="File" parent="Toolbar1/ARatio1/HBoxContainer" index="0"]
+items = [ "Save file as..", null, 0, false, false, 0, 0, null, "", false, "Load file", null, 0, false, false, 1, 0, null, "", false, "New file", null, 0, false, false, 2, 0, null, "", false, "Save file", null, 0, false, false, 3, 0, null, "", false ]
+
+[node name="Tab_menu" parent="Toolbar1/ARatio1/HBoxContainer" index="1"]
+items = [ "Clear one", null, 0, false, false, 0, 0, null, "", false, "Clear All", null, 0, false, false, 1, 0, null, "", false, "Rename current file", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="Settings" parent="Toolbar1/ARatio1/HBoxContainer" index="2"]
+items = [ "Edit Themes", null, 0, false, false, 0, 0, null, "", false, "Save files on quit ", null, 1, true, false, 1, 0, null, "", false, "Debug Mode (Only works in Editor)", null, 1, false, false, 2, 0, null, "", false, "Toggle Syntax Highlighting", null, 1, false, false, 3, 0, null, "", false ]
+
 [node name="WallpaperDialog" parent="Toolbar1/Front_Layers" index="2"]
 window_title = "Open File(s)"
+
+[node name="OptionButton" parent="Toolbar1/Front_Layers/Theme_dialog" index="1"]
+items = [ "Default", null, false, 0, null, "Light", null, false, 1, null, "Dark", null, false, 2, null, "Developer", null, false, 3, null, "Custom", null, false, 4, null ]
 
 [node name="apply_button" parent="Toolbar1/Front_Layers/Theme_dialog" index="3"]
 anchor_left = 0.167
@@ -45,6 +54,14 @@ margin_left = -0.127991
 margin_top = -0.119995
 margin_right = 0.127991
 margin_bottom = 0.120026
+
+[node name="icon" parent="Toolbar1/Front_Layers/window_handler" index="3"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress_panel" parent="Toolbar1" index="6"]
+visible = true
 
 [connection signal="text_entered" from="Toolbar1/Front_Layers/RenameDialog/rename_edit" to="Toolbar1" method="_on_rename_edit_text_entered"]
 

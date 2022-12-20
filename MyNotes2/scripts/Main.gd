@@ -36,13 +36,14 @@ onready var tab_container = $body/TabContainer
 onready var blocker = $Toolbar1/Front_Layers/blocker
 onready var discardtab = $Toolbar1/Toolbar_panel2/HBoxContainer/discard_tab
 
+onready var progress_panel = $Toolbar1/progress_panel
 onready var window_handl = $Toolbar1/Front_Layers/window_handler
 onready var window_title = $Toolbar1/window_title
 
 func _ready():
 	OS.min_window_size.y = 200
 	OS.min_window_size.x = 560
-	OS.max_window_size = Vector2(1920,1040)
+	OS.max_window_size = Vector2(1538,816)
 	OS.set_window_title("Notepad : Empty")
 	window_title.text = "Notepad : Empty"
 	var date = OS.get_date()
@@ -223,7 +224,7 @@ func maximized_window():
 		Settings.maximize = true
 		last_min_pos = rect_position
 		OS.window_position = Vector2(0,0)
-		OS.window_size = Vector2(OS.max_window_size)
+		OS.window_size = OS.get_max_window_size()
 		TabHandler.last_min_size = rect_size
 	elif Settings.maximize:
 		Settings.maximize = false
@@ -307,13 +308,17 @@ func quick_save():
 				for text in tab.get_children():
 					data = tab.text
 					selected_file = tab_container.current_tab
+		progress_panel.show()
+		progress_panel.get_node("lbl").text = "Saving in Progress..."
 		if TabHandler.current_tabs_path != []:
 			var file = File.new()
 			var error = file.open(TabHandler.current_tabs_path[selected_file], File.WRITE)
 			if error == OK:
 				file.store_string(data)
+				progress_panel.get_node("lbl").text = "Done!"
 				file.close()
 				bottom_panel_text("Quick Saved at : " + TabHandler.current_tabs_path[selected_file])
+				progress_panel.hide()
 				if Settings.debug_mode:
 					print("quick saved at :" + TabHandler.current_tabs_path[selected_file])
 			else:
@@ -333,18 +338,24 @@ func save_confirmed(path):
 					if i == "New file! Not saved!":
 						TabHandler.current_tabs_path.pop_at(tab_container.current_tab)
 						TabHandler.current_tabs_path.insert(tab_container.current_tab, save_dialog.current_path)
-						
+						progress_panel.show()
+						progress_panel.get_node("lbl").text = "Saving in Progress..."
 				current_folder = tab.name
 				for text in tab.get_children():
 					data = tab.text
 		
 		var file = File.new()
 		var error = file.open(str(path), File.WRITE)
+		if error == ERR_FILE_EOF:
+			progress_panel.hide()
+			progress_panel.get_node("lbl").text = "Saving in Progress..."
 		if error == OK:
+			progress_panel.get_node("lbl").text = "Done!"
 			file.store_string(data)
 			file.close()
 			if TabHandler.current_tabs != []:
 				OS.set_window_title("Notepad - Loaded : %s" % [TabHandler.current_tabs_path[tab_container.current_tab]])
+				progress_panel.hide()
 			print(path)
 			print("saved successfully!")
 		else:
@@ -354,13 +365,16 @@ func save_confirmed(path):
 	save_dialog.hide()
 
 func _load_confirmed():
+	progress_panel.show()
+	progress_panel.get_node("lbl").text = "Opening file..."
 	var file = File.new()
 	if file.file_exists(current_path):
 		var error = file.open(current_path, File.READ)
 		if error == OK:
+			progress_panel.get_node("lbl").text = "Found File, Read Success!"
 			print("loaded file successfuly!")
 			var tab_data = file.get_as_text()
-			
+			progress_panel.hide()
 			data = tab_data
 			
 			load_tab_data(tab_data, str(load_dialog.current_file.get_basename()))

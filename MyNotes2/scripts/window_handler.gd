@@ -11,7 +11,7 @@ func _ready() -> void:
 	b_distance_to_edge = OS.window_size.y - rect_global_position.y
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion or event is InputEventMouseButton && event.is_pressed():
 		if !following:
 			return
 		else:
@@ -21,7 +21,7 @@ func _input(event):
 				OS.window_position.x = clamp(OS.window_position.x, -980, 1890)
 			if Settings.maximize:
 				OS.window_size = Vector2(1024, 600)
-				OS.window_position = OS.get_screen_position() + get_local_mouse_position() + OS.window_position
+				OS.window_position = OS.get_screen_position() + get_local_mouse_position() + OS.window_position + get_global_mouse_position()
 				Settings.maximize = false
 			if OS.window_position.y >= 981 - drag_pos.y:
 				Input.warp_mouse_position(Vector2(get_local_mouse_position().x,drag_pos.y))

@@ -6,6 +6,8 @@ onready var zoom_in = $Toolbar_panel2/HBoxContainer/Zoom_in
 onready var zoom_out = $Toolbar_panel2/HBoxContainer/zoom_out
 onready var zoom_label = $Toolbar_panel2/HBoxContainer/zoom_label
 onready var search_bar = $Toolbar_panel2/HBoxContainer/search_bar
+onready var unhide_button = $Toolbar_panel2/toolbar_panel/unhide_b
+onready var hide_toolbar = $"%hide"
 onready var button_wp = $"%wp_button"
 onready var clear_wp_button = $"%clear_wp_button"
 
@@ -29,6 +31,8 @@ onready var round_corner = $"%spinbox_corner"
 onready var main = get_parent()
 
 func _ready():
+	hide_toolbar.connect("pressed", self, "hide_toolbar_on_pressed")
+	unhide_button.connect("pressed", self, "hide_toolbar_on_pressed")
 	zoom_in.connect("pressed", self, "zoom_in_action")
 	zoom_out.connect("pressed", self, "zoom_out_action")
 	search_bar.connect("text_entered", self, "search_words")
@@ -97,6 +101,7 @@ func search_words(text):
 									var res_line = results[TextEdit.SEARCH_RESULT_LINE]
 									var res_col = results[TextEdit.SEARCH_RESULT_COLUMN]
 									i.select(res_line,res_col,res_line,res_col + text.length())
+									
 
 func apply_colors():
 	new_color_tab(tab_clr.color, bg_tab_clr.color, round_corner.value)
@@ -214,6 +219,26 @@ func wp_show():
 
 func clear_wp():
 	main._unload_image()
+
+func hide_toolbar_on_pressed():
+	var panel = {0:$Toolbar_panel2/toolbar_panel,1:$Toolbar_panel2/HBoxContainer}
+	var tween = get_tree().create_tween()
+	if !panel[1].is_in_group("hidden"):
+		unhide_button.release_focus()
+		panel[1].add_to_group("hidden")
+		hide_toolbar.release_focus()
+		tween.tween_property(panel[0], "rect_position", Vector2(0,-80), 0.2).set_trans(Tween.TRANS_QUAD)
+		tween.parallel().tween_property(panel[1], "rect_position", Vector2(64,-80), 0.2).set_trans(Tween.TRANS_QUAD)
+		tween.tween_property(main.tab_container, "rect_position", Vector2(48,64), 0.2).set_trans(Tween.TRANS_QUAD)
+		tween.tween_callback(unhide_button,"show")
+		return
+	panel[1].remove_from_group("hidden")
+	unhide_button.release_focus()
+	hide_toolbar.release_focus()
+	tween.tween_property(panel[0], "rect_position", Vector2(0,40), 0.2).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(panel[1], "rect_position", Vector2(64,48), 0.2).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(main.tab_container, "rect_position", Vector2(48,88), 0.2).set_trans(Tween.TRANS_QUAD)
+	unhide_button.hide()
 
 func _on_rename_edit_text_entered(_new_text):
 	main._rename_confirmed()

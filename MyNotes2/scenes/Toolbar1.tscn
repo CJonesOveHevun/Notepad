@@ -34,9 +34,6 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Toolbar_panel2" type="Panel" parent="." groups=["themed"]]
 self_modulate = Color( 0.862745, 0.862745, 0.862745, 0 )
@@ -49,9 +46,17 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_bottom = 40.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="unhide_b" type="Button" parent="Toolbar_panel2/toolbar_panel" groups=["themed"]]
+visible = false
+anchor_left = 1.0
+anchor_top = -1.0
+anchor_right = 1.0
+anchor_bottom = -1.0
+margin_left = -40.0
+margin_top = 152.0
+margin_bottom = 192.0
+text = "V"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbar_panel2"]
 anchor_top = 1.0
@@ -59,20 +64,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 64.0
 margin_top = -32.0
-margin_right = -40.0
+margin_right = -24.0
 margin_bottom = -8.0
 custom_constants/separation = 15
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Zoom_in" type="Button" parent="Toolbar_panel2/HBoxContainer"]
+[node name="Zoom_in" type="Button" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
 margin_right = 36.0
 margin_bottom = 24.0
 text = "  +  "
 align = 0
 
-[node name="zoom_out" type="Button" parent="Toolbar_panel2/HBoxContainer"]
+[node name="zoom_out" type="Button" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
 margin_left = 51.0
 margin_right = 84.0
 margin_bottom = 24.0
@@ -91,7 +93,7 @@ text = "Zoomed : 25~"
 
 [node name="search_bar" type="LineEdit" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
 margin_left = 203.0
-margin_right = 821.0
+margin_right = 800.0
 margin_bottom = 24.0
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -104,12 +106,19 @@ caret_blink = true
 
 [node name="discard_tab" type="Button" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
 unique_name_in_owner = true
-margin_left = 836.0
-margin_right = 896.0
+margin_left = 815.0
+margin_right = 875.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Discard"
+
+[node name="hide" type="Button" parent="Toolbar_panel2/HBoxContainer" groups=["themed"]]
+unique_name_in_owner = true
+margin_left = 890.0
+margin_right = 912.0
+margin_bottom = 24.0
+text = "/\\"
 
 [node name="window_panel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -147,9 +156,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="VBoxContainer" parent="ARatio1"]
 margin_right = 32.0
@@ -355,7 +361,7 @@ size_flags_vertical = 3
 custom_constants/separation = 9
 
 [node name="text1" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 31.0
 text = "
 Windows:"
@@ -363,21 +369,18 @@ Windows:"
 [node name="Label" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox/text1"]
 anchor_right = 3.13
 anchor_bottom = 3.097
-margin_left = 104.0
+margin_left = 140.0
 margin_top = 40.0
-margin_right = 0.039978
-margin_bottom = -0.00700378
+margin_right = -0.420013
+margin_bottom = -0.00699615
 text = "Window
 
 "
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="window_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 40.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 60.0
 text = "Window"
 color = Color( 0.258824, 0.258824, 0.65098, 1 )
@@ -385,7 +388,7 @@ color = Color( 0.258824, 0.258824, 0.65098, 1 )
 [node name="toolbar_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 69.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 89.0
 disabled = true
 text = "Window"
@@ -393,7 +396,7 @@ color = Color( 1, 1, 1, 0 )
 
 [node name="text3" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 margin_top = 98.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 112.0
 text = "Buttons:"
 __meta__ = {
@@ -405,23 +408,20 @@ anchor_left = -0.043
 anchor_top = -0.143
 anchor_right = 3.174
 anchor_bottom = 6.214
-margin_left = 107.956
+margin_left = 145.762
 margin_top = 24.002
-margin_right = -4.00803
-margin_bottom = 0.0039978
+margin_right = -4.31601
+margin_bottom = 17.004
 text = "Normal
 Hovered Button
 
 LineEdit
 FocusedLineEdit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="button_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 121.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 141.0
 text = "Window"
 color = Color( 0.258824, 0.258824, 0.65098, 1 )
@@ -429,14 +429,14 @@ color = Color( 0.258824, 0.258824, 0.65098, 1 )
 [node name="h_button_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 150.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 170.0
 color = Color( 0.54902, 0.54902, 0.858824, 1 )
 
 [node name="lineedit_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 179.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 199.0
 text = "Window"
 color = Color( 0.258824, 0.258824, 0.65098, 1 )
@@ -444,13 +444,13 @@ color = Color( 0.258824, 0.258824, 0.65098, 1 )
 [node name="f_ledit_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 208.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 228.0
 color = Color( 0.537255, 0.537255, 0.882353, 1 )
 
 [node name="text4" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 margin_top = 237.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 251.0
 text = "Body:"
 __meta__ = {
@@ -462,9 +462,9 @@ anchor_left = 1.13
 anchor_top = 0.5
 anchor_right = 3.13
 anchor_bottom = 10.071
-margin_left = 0.0400009
+margin_left = 4.58
 margin_top = 14.0
-margin_right = 0.039978
+margin_right = -0.420013
 margin_bottom = -3.994
 text = "Tab
 Tab Bg
@@ -479,7 +479,7 @@ __meta__ = {
 [node name="tab_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 260.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 280.0
 text = "Window"
 color = Color( 0.156863, 0.160784, 0.223529, 1 )
@@ -487,7 +487,7 @@ color = Color( 0.156863, 0.160784, 0.223529, 1 )
 [node name="bg_tab_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 289.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 309.0
 text = "Window"
 color = Color( 0.0901961, 0.0901961, 0.12549, 1 )
@@ -495,7 +495,7 @@ color = Color( 0.0901961, 0.0901961, 0.12549, 1 )
 [node name="bg_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 318.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 338.0
 text = "Window"
 color = Color( 0.027451, 0.0235294, 0.0862745, 1 )
@@ -503,7 +503,7 @@ color = Color( 0.027451, 0.0235294, 0.0862745, 1 )
 [node name="fg_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 347.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 367.0
 text = "Window"
 color = Color( 0.0235294, 0.0235294, 0.0862745, 1 )
@@ -511,14 +511,14 @@ color = Color( 0.0235294, 0.0235294, 0.0862745, 1 )
 [node name="sidebar_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 376.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 396.0
 text = "Window"
 color = Color( 0.133333, 0.133333, 0.188235, 1 )
 
 [node name="text5" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 margin_top = 405.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 419.0
 text = "Popups:"
 __meta__ = {
@@ -530,10 +530,10 @@ anchor_left = 1.13
 anchor_top = 0.5
 anchor_right = 3.217
 anchor_bottom = 7.571
-margin_left = 0.0400009
+margin_left = 4.58
 margin_top = 19.0
-margin_right = 0.0359802
-margin_bottom = 0.00598907
+margin_right = -0.0780029
+margin_bottom = 0.0059967
 text = "MenuPopup
 Hovered MenuPopup
 Dialog"
@@ -544,7 +544,7 @@ __meta__ = {
 [node name="menu_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 428.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 448.0
 text = "Window"
 color = Color( 0.0235294, 0.0235294, 0.0862745, 0.505882 )
@@ -552,7 +552,7 @@ color = Color( 0.0235294, 0.0235294, 0.0862745, 0.505882 )
 [node name="h_menu_clr" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 457.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 477.0
 color = Color( 0.988235, 0.988235, 0.988235, 1 )
 __meta__ = {
@@ -562,14 +562,14 @@ __meta__ = {
 [node name="dialog_color" type="ColorPickerButton" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 unique_name_in_owner = true
 margin_top = 486.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 506.0
 text = "Window"
 color = Color( 0.0235294, 0.0235294, 0.0862745, 1 )
 
 [node name="text2" type="Label" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox"]
 margin_top = 515.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 529.0
 text = "Round corners"
 __meta__ = {
@@ -579,7 +579,7 @@ __meta__ = {
 [node name="spinbox_corner" type="SpinBox" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox" groups=["themed"]]
 unique_name_in_owner = true
 margin_top = 538.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 562.0
 max_value = 40.0
 __meta__ = {
@@ -589,7 +589,7 @@ __meta__ = {
 [node name="wp_button" type="Button" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox" groups=["themed"]]
 unique_name_in_owner = true
 margin_top = 571.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 591.0
 hint_tooltip = "Import Wallpaper"
 focus_mode = 0
@@ -599,7 +599,7 @@ text = "Import Background"
 [node name="clear_wp_button" type="Button" parent="Front_Layers/Theme_dialog/themetab/normal_colors/vbox" groups=["themed"]]
 unique_name_in_owner = true
 margin_top = 600.0
-margin_right = 92.0
+margin_right = 134.0
 margin_bottom = 620.0
 text = "Clear Background"
 
@@ -673,6 +673,27 @@ margin_left = 8.0
 margin_right = 40.0
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="progress_panel" type="WindowDialog" parent="." groups=["themed"]]
+anchor_left = 0.512
+anchor_top = 0.6
+anchor_right = 0.512
+anchor_bottom = 0.6
+margin_left = -160.0
+margin_top = -80.0
+margin_right = 160.0
+margin_bottom = 48.0
+
+[node name="lbl" type="Label" parent="progress_panel"]
+margin_top = 24.0
+margin_right = 320.0
+margin_bottom = 64.0
+text = "Saving in Progress..."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="bar" type="ProgressBar" parent="progress_panel"]
+margin_top = 104.0
+margin_right = 320.0
+margin_bottom = 126.0
