@@ -41,11 +41,9 @@ onready var window_handl = $Toolbar1/Front_Layers/window_handler
 onready var window_title = $Toolbar1/window_title
 
 func _ready():
-	OS.min_window_size.y = 200
-	OS.min_window_size.x = 560
-	OS.max_window_size = Vector2(1538,816)
-	OS.set_window_title("Notepad : Empty")
-	window_title.text = "Notepad : Empty"
+	call_deferred("_set_window")
+	OS.set_window_title("Lunary : Empty")
+	window_title.text = "Lunary : Empty"
 	var date = OS.get_date()
 	bottom_label.text = "%s:%s:%s - " % [date["day"],date["month"],date["year"]]
 	
@@ -54,6 +52,7 @@ func _ready():
 	load_dialog.connect("confirmed", self, "_load_confirmed")
 	load_dialog.connect("file_selected", self, "_load_file_selected")
 	rename_dialog.get_child(2).connect("pressed", self ,"_rename_confirmed")
+	rename_dialog.get_child(3).connect("pressed", self ,"_rename_cancel")
 	wp_dialog.connect("file_selected", self, "_load_image")
 	
 	menu_tab.get_child(0).connect("id_pressed", self, "_menu_tab_pressed")
@@ -88,6 +87,12 @@ func _ready():
 	else:
 		for node in get_tree().get_nodes_in_group("themed"):
 			node.theme = Settings.default_theme
+
+func _set_window():
+	OS.min_window_size = Vector2(500,200)
+	OS.max_window_size = Vector2(1536,824)
+	OS.window_size = Vector2(1000,640)
+	OS.window_position -= Vector2(500,100)
 
 func load_settings_data():
 	var settings_config = File.new()
@@ -224,7 +229,8 @@ func maximized_window():
 		Settings.maximize = true
 		last_min_pos = rect_position
 		OS.window_position = Vector2(0,0)
-		OS.window_size = OS.get_max_window_size()
+		OS.window_size.x = OS.get_screen_size().x
+		OS.window_size.y = OS.get_screen_size().y - 40
 		TabHandler.last_min_size = rect_size
 	elif Settings.maximize:
 		Settings.maximize = false
@@ -269,7 +275,6 @@ func _file_id_pressed(id):
 			blocker.show()
 		2:#New File
 			bottom_panel_text("Create a File")
-			blocker.show()
 			var new_tab = TextEdit.new()
 			var tab_properties = {"theme" : Settings.default_theme, "name" : "New Note"}
 			
@@ -288,7 +293,6 @@ func _file_id_pressed(id):
 			tab_container.add_child(new_tab, true)
 			tab_container.current_tab = TabHandler.current_tabs.size() - 1
 			TabHandler.current_tab_selected = TabHandler.current_tabs.size() - 1
-			rename_dialog.show()
 			rename_dialog.rect_position = OS.window_size * 0.4
 			rename_dialog.get_child(1).call_deferred("grab_focus")
 			if Settings.debug_mode:
@@ -432,13 +436,20 @@ func _rename_confirmed():
 		if rename_dialog.get_child(1).text != "":
 			for i in tab_container.get_children():
 				print("names found :" + i.name)
-				if i.name == rename_dialog.get_child(1).text && i.get_index() == tab_container.current_tab:
-					tab_container.get_child(tab_container.current_tab).name = rename_dialog.get_child(1).text + "(%s)" % [str(tab_container.current_tab + 1)]
-				elif i.name != rename_dialog.get_child(1).text: 
+				if i.name ==  rename_dialog.get_child(1).text:
+					tab_container.get_child(tab_container.current_tab).name = i.name + "(%s)" % [str(tab_container.current_tab + 1)]
+					return
+				else:
 					tab_container.get_child(tab_container.current_tab).name = rename_dialog.get_child(1).text
+					return
 		else:
+			bottom_panel_text("ERROR : Cant name a file with '' ")
 			print("ERROR : Cant rename a file")
 			return
+
+func _rename_cancel():
+	rename_dialog.hide()
+	bottom_panel_text("")
 
 func _menu_tab_pressed(id):
 	match id:
@@ -451,8 +462,8 @@ func _menu_tab_pressed(id):
 				TabHandler.current_tabs = []
 				TabHandler.current_tabs_name = []
 				TabHandler.current_tabs_path = []
-				OS.set_window_title("Notepad - Empty")
-				window_title.text = "Notepad - Empty"
+				OS.set_window_title("Lunary - Empty")
+				window_title.text = "Lunary - Empty"
 		2:
 			if TabHandler.current_tabs != []:
 				rename_dialog.show()
@@ -460,8 +471,8 @@ func _menu_tab_pressed(id):
 				blocker.show()
 
 func change_current_tab(id):
-	OS.set_window_title("Notepad - Loaded : %s" % [TabHandler.current_tabs_path[id]])
-	window_title.text = "Notepad - Loaded : %s" % [TabHandler.current_tabs_path[id]]
+	OS.set_window_title("Lunary - Loaded : %s" % [TabHandler.current_tabs_path[id]])
+	window_title.text = "Lunary - Loaded : %s" % [TabHandler.current_tabs_path[id]]
 	TabHandler.current_tab_selected = id
 	if Settings.debug_mode:
 		print("selected tab: " + str(id))
@@ -570,8 +581,13 @@ func bottom_panel_text(add_text):
 func _notification(what):
 	match what:
 		NOTIFICATION_WM_FOCUS_OUT:
+			_process(false)
 			for i in tab_container.get_children():
 				i.release_focus()
+			if Settings.debug_mode : print("out!")
+		NOTIFICATION_WM_FOCUS_IN:
+			_process(true)
+			if Settings.debug_mode : print("entered")
 		NOTIFICATION_THEME_CHANGED:
 			print("theme changed!")
 
@@ -616,11 +632,16 @@ func open_dropped_files(tab_data, get_name, path: String):
 	text_edit.theme = Settings.text_font
 	text_edit.show_line_numbers = true
 	text_edit.text = tab_data
-	text_edit.name = get_name
 	text_edit.wrap_enabled = true
 	text_edit.highlight_current_line = true
 	tab_container.add_child(text_edit)
-	TabHandler.current_tabs_name.append(text_edit.name)
+	for i in tab_container.get_children():
+		if i.name != text_edit.name:
+			text_edit.name = get_name
+			TabHandler.current_tabs_name.append(text_edit.name)
+		else:
+			text_edit.name = get_name + "(%s)" % [str(tab_container.current_tab + 1)]
+			TabHandler.current_tabs_name.append(text_edit.name)
 	TabHandler.current_tabs.append(text_edit)
 	TabHandler.current_tabs_path.append(path)
 

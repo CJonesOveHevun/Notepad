@@ -38,7 +38,7 @@ func _ready():
 	search_bar.connect("text_entered", self, "search_words")
 	button_wp.connect("pressed", self, "wp_show")
 	clear_wp_button.connect("pressed", self, "clear_wp")
-
+	print(OS.get_tablet_driver_name(0))
 func _unhandled_key_input(event):
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("zoom_in"):

@@ -31,6 +31,7 @@ items = [ "Edit Themes", null, 0, false, false, 0, 0, null, "", false, "Save fil
 
 [node name="WallpaperDialog" parent="Toolbar1/Front_Layers" index="2"]
 window_title = "Open File(s)"
+filters = PoolStringArray( "*.png", "*.jpeg", "*.kra" )
 
 [node name="OptionButton" parent="Toolbar1/Front_Layers/Theme_dialog" index="1"]
 items = [ "Default", null, false, 0, null, "Light", null, false, 1, null, "Dark", null, false, 2, null, "Developer", null, false, 3, null, "Custom", null, false, 4, null ]

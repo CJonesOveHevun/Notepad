@@ -23,7 +23,7 @@ func _input(event):
 				OS.window_size = Vector2(1024, 600)
 				OS.window_position = OS.get_screen_position() + get_local_mouse_position() + OS.window_position + get_global_mouse_position()
 				Settings.maximize = false
-			if OS.window_position.y >= 981 - drag_pos.y:
+			if OS.window_position.y >= (OS.get_screen_size(0) * 0.4).y - drag_pos.y:
 				Input.warp_mouse_position(Vector2(get_local_mouse_position().x,drag_pos.y))
 		
 func _on_Window_gui_input(event):
